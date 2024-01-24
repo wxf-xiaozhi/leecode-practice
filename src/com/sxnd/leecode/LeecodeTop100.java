@@ -12,12 +12,23 @@ import java.util.List;
  */
 public class LeecodeTop100 {
 
+    static class ListNode {
+        int val;
+        ListNode next;
+
+        public ListNode(int val, ListNode next){
+            this.val = val;
+            this.next = next;
+
+        }
+    }
+
     static class TreeNode{
         int val;
         TreeNode left;
         TreeNode right;
 
-        public TreeNode(int val,TreeNode left,TreeNode right){
+        public TreeNode(int val, TreeNode left, TreeNode right){
             this.val = val;
             this.left = left;
             this.right = right;
@@ -56,7 +67,7 @@ public class LeecodeTop100 {
         return result;
     }
 
-    public void midOrder(TreeNode subNode,List<Integer> result){
+    public void midOrder(TreeNode subNode, List<Integer> result){
         if(subNode == null){
             return;
         }
@@ -67,5 +78,22 @@ public class LeecodeTop100 {
         if(subNode.right != null){
             midOrder(subNode.right,result);
         }
+    }
+
+    /**
+     * leecode 206
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+        ListNode pre = null;
+        ListNode cur = head;
+        while (cur != null){
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
     }
 }
