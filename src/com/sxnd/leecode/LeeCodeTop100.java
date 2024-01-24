@@ -5,12 +5,12 @@ import java.util.List;
 
 /**
  * @author GW00305020
- * @ClassName MyTest
- * @description: TODO
+ * @ClassName LeeCodeTop100
+ * @description: 练习leecode的top100的题目
  * @date 2024年01月24日
  * @version: 1.0
  */
-public class LeecodeTop100 {
+public class LeeCodeTop100 {
 
     static class ListNode {
         int val;
