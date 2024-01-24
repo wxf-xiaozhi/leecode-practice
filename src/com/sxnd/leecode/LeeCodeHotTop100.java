@@ -107,20 +107,6 @@ public class LeeCodeHotTop100 {
 //      46
 
         int maxArea = 0;
-//        for (int i = 0; i < height.length-1; i++) {
-//            int x = i;
-//            int y = height[i];
-//            int area = x * y;
-//            for (int j = 1; j < height.length; j++) {
-//                int a = j;
-//                int b = height[j];
-//                int area1 = b * a;
-//                int subArea = area1 - area;
-//                maxArea = Math.max(maxArea,Math.abs(subArea));
-//            }
-//        }
-//        return maxArea;
-
         int L = 0;
         int R = height.length-1;
         while (L < R){
