@@ -96,4 +96,50 @@ public class LeeCodeHotTop100 {
         }
         return pre;
     }
+
+    /**
+     * leecode 11
+     * @param height
+     * @return
+     */
+    public static int maxArea(int[] height) {
+//      [1,8,6,2,5,4,8,3,7]
+//      46
+
+        int maxArea = 0;
+//        for (int i = 0; i < height.length-1; i++) {
+//            int x = i;
+//            int y = height[i];
+//            int area = x * y;
+//            for (int j = 1; j < height.length; j++) {
+//                int a = j;
+//                int b = height[j];
+//                int area1 = b * a;
+//                int subArea = area1 - area;
+//                maxArea = Math.max(maxArea,Math.abs(subArea));
+//            }
+//        }
+//        return maxArea;
+
+        int L = 0;
+        int R = height.length-1;
+        while (L < R){
+            int area = Math.min(height[L],height[R]) * (R-L);
+            maxArea = Math.max(area,maxArea);
+            if(height[L] <= height[R]){
+                L++;
+            }else{
+                R++;
+            }
+        }
+        return maxArea;
+
+
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1,8,6,2,5,4,8,3,7};
+        maxArea(arr);
+    }
+
 }
