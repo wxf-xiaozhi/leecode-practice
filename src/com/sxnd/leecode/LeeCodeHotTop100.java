@@ -227,35 +227,35 @@ public class LeeCodeHotTop100 {
      * @param list2
      * @return
      */
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+    public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 //        输入：l1 = [1,2,4], l2 = [1,3,4]
 //        输出：[1,1,2,3,4,4]
         ListNode cur1 = list1;
-        ListNode cur2 = list2;
         ListNode result = cur1;
         min(cur1,cur1.next,list2);
         return result;
 
 
     }
-    public void min(ListNode head ,ListNode list1, ListNode list2){
+    public static void min(ListNode head ,ListNode list1, ListNode list2){
         if(list1 == null){
             return;
         }
         if(list2 == null){
             return;
         }
-        ListNode next1 = list1.next;
         ListNode next2 = list2.next;
         head.next = list2;
-        min(head.next,next2,next1);
-
+        min(head.next,next2,list1);
     }
 
     public static void main(String[] args) {
-        int[] arr =  {1,2,4};
-        ListNode listNode = buildListNodeByArray(arr);
-        System.out.println(listNode);
+        int[] arr1 =  {1,2,4};
+        int[] arr2 =  {1,3,4};
+        ListNode listNode1 = buildListNodeByArray(arr1);
+        ListNode listNode2 = buildListNodeByArray(arr2);
+        ListNode mergeTwoLists = mergeTwoLists(listNode1, listNode2);
+        System.out.println(mergeTwoLists);
     }
 
 
