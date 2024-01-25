@@ -230,23 +230,53 @@ public class LeeCodeHotTop100 {
     public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 //        输入：l1 = [1,2,4], l2 = [1,3,4]
 //        输出：[1,1,2,3,4,4]
-        ListNode cur1 = list1;
-        ListNode result = cur1;
-        min(cur1,cur1.next,list2);
-        return result;
+
+        /**
+         * 以下是自己写的合并算法
+         */
+//        if(list1 == null ){
+//            return list2;
+//        }
+//        if(list2 == null){
+//            return list1;
+//        }
+//        ListNode result = list1;
+//        recursion(list1,list2);
+//        return result;
+
+        /**
+         * 官方给出的递归算法
+         */
+        if (list1 == null) {
+            return list2;
+        } else if (list2 == null) {
+            return list1;
+        } else if (list1.val < list2.val) {
+            list1.next = mergeTwoLists(list1.next, list2);
+            return list1;
+        } else {
+            list2.next = mergeTwoLists(list1, list2.next);
+            return list2;
+        }
 
 
     }
-    public static void min(ListNode head ,ListNode list1, ListNode list2){
-        if(list1 == null){
+
+    /**
+     * 合并两个链表的递归方法,仅仅将链表合并并未排序
+     * @param list1
+     * @param list2
+     */
+    public static void recursion(ListNode list1, ListNode list2){
+        if(list1 == null ){
             return;
         }
         if(list2 == null){
             return;
         }
-        ListNode next2 = list2.next;
-        head.next = list2;
-        min(head.next,next2,list1);
+        ListNode next1 = list1.next;
+        list1.next = list2;
+        recursion(list2,next1);
     }
 
     public static void main(String[] args) {
