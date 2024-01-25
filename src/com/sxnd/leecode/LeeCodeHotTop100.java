@@ -1,7 +1,6 @@
 package com.sxnd.leecode;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author GW00305020
@@ -123,9 +122,70 @@ public class LeeCodeHotTop100 {
 
     }
 
-    public static void main(String[] args) {
-        int[] arr = {1,8,6,2,5,4,8,3,7};
-        maxArea(arr);
+    /**
+     * leecode 64
+     * @param grid
+     * @return
+     */
+    public int minPathSum(int[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+        int rows = grid.length, columns = grid[0].length;
+        int[][] dp = new int[rows][columns];
+        dp[0][0] = grid[0][0];
+        for (int i = 1; i < rows; i++) {
+            dp[i][0] = dp[i - 1][0] + grid[i][0];
+        }
+        for (int j = 1; j < columns; j++) {
+            dp[0][j] = dp[0][j - 1] + grid[0][j];
+        }
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j < columns; j++) {
+                dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+            }
+        }
+        return dp[rows - 1][columns - 1];
+
     }
+
+    /**
+     * leecode 20
+     * @param s
+     * @return
+     */
+    public boolean isValid(String s) {
+//        输入：s = "()[]{}"
+//        输出：true
+
+        int length = s.length();
+        if(length % 2 ==0){
+            return false;
+        }
+
+
+        Map<Character,Character> map = new HashMap<>();
+        map.put(')','(');
+        map.put(']','[');
+        map.put('}','{');
+
+        Stack<Character> stack = new Stack<>();
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            Character ch = chars[i];
+            if(!map.containsKey(ch)){
+                stack.push(ch);
+            }else{
+                if (stack.isEmpty() || stack.peek() != map.get(ch)) {
+                    return false;
+                }
+                stack.pop();
+            }
+        }
+        return true;
+
+
+    }
+
 
 }
