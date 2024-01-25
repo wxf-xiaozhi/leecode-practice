@@ -20,6 +20,23 @@ public class LeeCodeHotTop100 {
             this.next = next;
 
         }
+        public ListNode(int val){
+            this.val = val;
+        }
+
+        @Override
+        public String toString() {
+            ListNode cur = this;
+            StringBuilder sb = new StringBuilder("ListNode:");
+            int count = 0;
+            while (cur != null){
+                String prefix = count == 0 ?"":"-";
+                sb.append(prefix+cur.val);
+                cur = cur.next;
+                count++;
+            }
+            return sb.toString();
+        }
     }
 
     static class TreeNode{
@@ -185,6 +202,60 @@ public class LeeCodeHotTop100 {
         return true;
 
 
+    }
+
+    /**
+     * 根据数据构造链表
+     * @param arr
+     * @return
+     */
+    public static ListNode buildListNodeByArray(int[] arr){
+        ListNode cur = new ListNode(0);
+        ListNode head = cur;
+        for (int i = 0; i < arr.length; i++) {
+            ListNode temp = new ListNode(arr[i]);
+            cur.next = temp;
+            cur = temp;
+        }
+        return head.next;
+    }
+
+
+    /**
+     * leecode 21
+     * @param list1
+     * @param list2
+     * @return
+     */
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+//        输入：l1 = [1,2,4], l2 = [1,3,4]
+//        输出：[1,1,2,3,4,4]
+        ListNode cur1 = list1;
+        ListNode cur2 = list2;
+        ListNode result = cur1;
+        min(cur1,cur1.next,list2);
+        return result;
+
+
+    }
+    public void min(ListNode head ,ListNode list1, ListNode list2){
+        if(list1 == null){
+            return;
+        }
+        if(list2 == null){
+            return;
+        }
+        ListNode next1 = list1.next;
+        ListNode next2 = list2.next;
+        head.next = list2;
+        min(head.next,next2,next1);
+
+    }
+
+    public static void main(String[] args) {
+        int[] arr =  {1,2,4};
+        ListNode listNode = buildListNodeByArray(arr);
+        System.out.println(listNode);
     }
 
 
