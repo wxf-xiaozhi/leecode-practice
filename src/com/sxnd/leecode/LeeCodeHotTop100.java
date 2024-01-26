@@ -406,13 +406,34 @@ public class LeeCodeHotTop100 {
         }
 
         return hair.next;
+
+    }
+
+    public static void subListNode(ListNode node ,int k,List<ListNode> list){
+        int count =1 ;
+        list.add(node);
+        while (node != null){
+            node = node.next;
+            count++;
+            if(count == k){
+                ListNode next = node;
+                subListNode(next.next,k,list);
+                if(node != null){
+                    node.next = null;
+
+                }
+                return;
+
+            }
+
+        }
     }
 
     public static ListNode[] myReverse(ListNode head, ListNode tail) {
         ListNode prev = tail.next;
         ListNode p = head;
         while (prev != tail) {
-                ListNode nex = p.next;
+            ListNode nex = p.next;
             p.next = prev;
             prev = p;
             p = nex;
@@ -440,6 +461,7 @@ public class LeeCodeHotTop100 {
 
 
 
+
     public static void main(String[] args) {
         int[] arr1 =  {1,2,4};
         int[] arr2 =  {1,3,4};
@@ -455,12 +477,6 @@ public class LeeCodeHotTop100 {
     }
 
 
-    public static List<ListNode> myRevert1(ListNode l1,ListNode l2){
-
-        ListNode next = l2.next;
-        l2.next = l1;
-        return null;
-    }
 
 
 }
