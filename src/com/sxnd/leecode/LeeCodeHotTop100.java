@@ -11,46 +11,7 @@ import java.util.*;
  */
 public class LeeCodeHotTop100 {
 
-    static class ListNode {
-        int val;
-        ListNode next;
 
-        public ListNode(int val, ListNode next){
-            this.val = val;
-            this.next = next;
-
-        }
-        public ListNode(int val){
-            this.val = val;
-        }
-
-        @Override
-        public String toString() {
-            ListNode cur = this;
-            StringBuilder sb = new StringBuilder("ListNode:");
-            int count = 0;
-            while (cur != null){
-                String prefix = count == 0 ?"":"-";
-                sb.append(prefix+cur.val);
-                cur = cur.next;
-                count++;
-            }
-            return sb.toString();
-        }
-    }
-
-    static class TreeNode{
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        public TreeNode(int val, TreeNode left, TreeNode right){
-            this.val = val;
-            this.left = left;
-            this.right = right;
-
-        }
-    }
     /**
      * leecode 266
      * @param root
@@ -210,16 +171,7 @@ public class LeeCodeHotTop100 {
      * @param arr
      * @return
      */
-    public static ListNode buildListNodeByArray(int[] arr){
-        ListNode cur = new ListNode(0);
-        ListNode head = cur;
-        for (int i = 0; i < arr.length; i++) {
-            ListNode temp = new ListNode(arr[i]);
-            cur.next = temp;
-            cur = temp;
-        }
-        return head.next;
-    }
+
 
 
     /**
@@ -471,7 +423,7 @@ public class LeeCodeHotTop100 {
 //        ListNode mergeTwoLists = mergeTwoLists(listNode1, listNode2);
 //        System.out.println(mergeTwoLists);
 
-        ListNode listNode3 = buildListNodeByArray(arr3);
+        ListNode listNode3 = ListNode.buildListNodeByArray(arr3);
         ListNode reverseKGroup = reverseKGroup(listNode3,2);
         System.out.println(reverseKGroup);
     }

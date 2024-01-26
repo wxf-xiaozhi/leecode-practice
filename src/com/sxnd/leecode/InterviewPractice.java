@@ -21,17 +21,6 @@ public class InterviewPractice {
 //    如abcc,子串为abc,长度为3
 
 
-
-    static class ListNode{
-        int val;
-        ListNode next;
-
-        ListNode(int val){
-            this.val =val;
-        }
-    }
-
-
 //    如abcc,子串为abc,长度为3,猿辅导面试
 
     /**
@@ -119,5 +108,40 @@ public class InterviewPractice {
         node.next = new ListNode(2).next= new ListNode(3);
         System.out.println(head);
     }
+
+
+    public static ListNode deleteDuplication(ListNode pHead) {
+        Set<Integer> mySet = new HashSet<>();
+        ListNode dump = new ListNode(-1);
+        dump.next = pHead;
+        ListNode p = dump;
+        while(p != null){
+            int val = p.val;
+            ListNode next  = p.next;
+            if(next != null && val == next.val ){
+                mySet.add(val);
+            }
+            p = next;
+        };
+
+        ListNode p1 = dump;
+        while(p1 != null){
+            while(p1 != null && mySet.contains(p1) ){
+                p1 = p1.next;
+            }
+            p1 = p1.next;
+        };
+        return dump.next;
+    }
+
+//    innodb RR
+//    id(pk), uid(index), value
+//1       10          a
+//
+//    tx1:
+//    update table set uid=20 where id=1;
+//
+//    tx2:
+//    delete from table where uid=10;
 
 }
