@@ -51,15 +51,16 @@ public class LeeCodeHotTop100 {
 
         }
     }
+    /**
+     * leecode 266
+     * @param root
+     */
     public TreeNode invertTree(TreeNode root) {
         invertSubTree(root);
         return root;
     }
 
-    /**
-     * leecode 266
-     * @param subNode
-     */
+
     public void invertSubTree(TreeNode subNode){
         if(subNode == null){
             return;
@@ -97,7 +98,7 @@ public class LeeCodeHotTop100 {
     }
 
     /**
-     * leecode 206
+     * leecode 206 翻转链表
      * @param head
      * @return
      */
@@ -371,14 +372,94 @@ public class LeeCodeHotTop100 {
 
     }
 
+    /**
+     * leecode 25
+     * @param head
+     * @param k
+     * @return
+     */
+    public static ListNode reverseKGroup(ListNode head, int k) {
+//        输入：head = [1,2,3,4,5], k = 2
+//        输出：[2,1,4,3,5]
+        ListNode hair = new ListNode(0);
+        hair.next = head;
+        ListNode pre = hair;
+
+        while (head != null) {
+            ListNode tail = pre;
+            // 查看剩余部分长度是否大于等于 k
+            for (int i = 0; i < k; ++i) {
+                tail = tail.next;
+                if (tail == null) {
+                    return hair.next;
+                }
+            }
+            ListNode nex = tail.next;
+            ListNode[] reverse = myReverse(head, tail);
+            head = reverse[0];
+            tail = reverse[1];
+            // 把子链表重新接回原链表
+            pre.next = head;
+            tail.next = nex;
+            pre = tail;
+            head = tail.next;
+        }
+
+        return hair.next;
+    }
+
+    public static ListNode[] myReverse(ListNode head, ListNode tail) {
+        ListNode prev = tail.next;
+        ListNode p = head;
+        while (prev != tail) {
+                ListNode nex = p.next;
+            p.next = prev;
+            prev = p;
+            p = nex;
+        }
+        return new ListNode[]{tail, head};
+    }
+
+    /**
+     * leecode 24 两两交换链表中的节点 递归
+     * @param head
+     * @return
+     */
+    public static ListNode swapPairs(ListNode head) {
+//        输入：head = [1,2,3,4]
+//        输出：[2,1,4,3]
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode newHead = head.next;
+        head.next = swapPairs(newHead.next);
+        newHead.next = head;
+        return newHead;
+    }
+
+
+
 
     public static void main(String[] args) {
         int[] arr1 =  {1,2,4};
         int[] arr2 =  {1,3,4};
-        ListNode listNode1 = buildListNodeByArray(arr1);
-        ListNode listNode2 = buildListNodeByArray(arr2);
-        ListNode mergeTwoLists = mergeTwoLists(listNode1, listNode2);
+        int[] arr3 =  {1,2,3,4,5};
+//        ListNode listNode1 = buildListNodeByArray(arr1);
+//        ListNode listNode2 = buildListNodeByArray(arr2);
+//        ListNode mergeTwoLists = mergeTwoLists(listNode1, listNode2);
 //        System.out.println(mergeTwoLists);
+
+        ListNode listNode3 = buildListNodeByArray(arr3);
+        ListNode reverseKGroup = reverseKGroup(listNode3,2);
+        System.out.println(reverseKGroup);
+    }
+
+
+    public static List<ListNode> myRevert1(ListNode l1,ListNode l2){
+
+        ListNode next = l2.next;
+        l2.next = l1;
+        return null;
     }
 
 
