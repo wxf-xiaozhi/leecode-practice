@@ -410,7 +410,26 @@ public class LeeCodeHotTop100 {
         return newHead;
     }
 
-
+    /**
+     * leecode 560
+     * @param nums
+     * @param k
+     * 注意要连续，所以先确定最后一个数，倒着遍历，判断和是不是等于k,可能更方便
+     * @return
+     */
+    public static int subarraySum(int[] nums, int k) {
+        int count = 0;
+        for (int start = 0; start < nums.length; ++start) {
+            int sum = 0;
+            for (int end = start; end >= 0; --end) {
+                sum += nums[end];
+                if (sum == k) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 
 
 
@@ -423,9 +442,13 @@ public class LeeCodeHotTop100 {
 //        ListNode mergeTwoLists = mergeTwoLists(listNode1, listNode2);
 //        System.out.println(mergeTwoLists);
 
-        ListNode listNode3 = ListNode.buildListNodeByArray(arr3);
-        ListNode reverseKGroup = reverseKGroup(listNode3,2);
-        System.out.println(reverseKGroup);
+//        ListNode listNode3 = ListNode.buildListNodeByArray(arr3);
+//        ListNode reverseKGroup = reverseKGroup(listNode3,2);
+//        System.out.println(reverseKGroup);
+
+        int[] arr4 ={1,1,1};
+
+        System.out.println(subarraySum(arr4, 2));
     }
 
 
