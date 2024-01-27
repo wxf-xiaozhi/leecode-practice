@@ -103,10 +103,15 @@ public class InterviewPractice {
     }
 
     public static void main(String[] args) {
-        ListNode node = new ListNode(1);
-        ListNode head = node;
-        node.next = new ListNode(2).next= new ListNode(3);
-        System.out.println(head);
+//        ListNode node = new ListNode(1);
+//        ListNode head = node;
+//        node.next = new ListNode(2).next= new ListNode(3);
+//        System.out.println(head);
+
+        int[] arr ={1,2,3,3,4,4,5};
+        ListNode listNode = ListNode.buildListNodeByArray(arr);
+        System.out.println(deleteDuplication(listNode));
+
     }
 
 
@@ -126,8 +131,8 @@ public class InterviewPractice {
 
         ListNode p1 = dump;
         while(p1 != null){
-            while(p1 != null && mySet.contains(p1) ){
-                p1 = p1.next;
+            while(p1 != null && mySet.contains(p1.val) ){
+                p1 = p1.next.next;
             }
             p1 = p1.next;
         };
