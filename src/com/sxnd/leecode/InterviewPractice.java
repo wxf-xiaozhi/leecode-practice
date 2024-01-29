@@ -145,18 +145,25 @@ public class InterviewPractice {
 
 
     /**
-     * 高德面试
+     * 高德面试 leecode 19
      * @param head
      * @param n
      * @return
      */
     public static ListNode deleteKthToLast(ListNode head, int n) {
-        int count = 0;
+        int sum = 0;
         ListNode cur = head;
         while(cur != null){
-            count++;
+            sum++;
             cur = cur.next;
         }
+        if(head == null ){
+            return null;
+        }
+        if(sum == n ){
+            return head.next;
+        }
+
         int index = 0;
         ListNode node = head;
         ListNode pre = null;
@@ -164,7 +171,36 @@ public class InterviewPractice {
             index++;
             pre = node;
             ListNode next = node.next;
-            int seq = (count-n+1);
+            int seq = (sum-n);
+            if(index == seq){
+                next = next.next;
+            }
+            pre.next = next;
+            node = next;
+        }
+        return head;
+    }
+
+    /**
+     * leecode 19 的错误解法，但并不知道哪里错误？
+     * @param head
+     * @param n
+     * @return
+     */
+    @Deprecated
+    public static ListNode deleteKthToLast1(ListNode head, int n) {
+        int sum = 0;
+        ListNode countNode = head;
+        while(countNode != null){
+            sum++;
+            countNode = countNode.next;
+        }
+        int index = 0;
+        ListNode node = head;
+        while(node != null){
+            index++;
+            ListNode next = node.next;
+            int seq = (sum-n);
             if(index == seq){
                 next = next.next;
             }
