@@ -71,7 +71,7 @@ public class InterviewPractice {
     }
 
     /**
-     * leecode19题
+     * leecode 19题
      * @param head
      * @param n
      * @return
@@ -102,19 +102,13 @@ public class InterviewPractice {
         return pre;
     }
 
-    public static void main(String[] args) {
-//        ListNode node = new ListNode(1);
-//        ListNode head = node;
-//        node.next = new ListNode(2).next= new ListNode(3);
-//        System.out.println(head);
-
-        int[] arr ={1,2,3,3,4,4,5};
-        ListNode listNode = ListNode.buildListNodeByArray(arr);
-        System.out.println(deleteDuplication(listNode));
-
-    }
 
 
+    /**
+     * 删除链表重复元素
+     * @param pHead
+     * @return
+     */
     public static ListNode deleteDuplication(ListNode pHead) {
         Set<Integer> mySet = new HashSet<>();
         ListNode dump = new ListNode(-1);
@@ -148,5 +142,56 @@ public class InterviewPractice {
 //
 //    tx2:
 //    delete from table where uid=10;
+
+
+    /**
+     * 高德面试
+     * @param head
+     * @param n
+     * @return
+     */
+    public static ListNode deleteKthToLast(ListNode head, int n) {
+        int count = 0;
+        ListNode cur = head;
+        while(cur != null){
+            count++;
+            cur = cur.next;
+        }
+        int index = 0;
+        ListNode node = head;
+        ListNode pre = null;
+        while(node != null){
+            index++;
+            pre = node;
+            ListNode next = node.next;
+            int seq = (count-n+1);
+            if(index == seq){
+                next = next.next;
+            }
+            node = next;
+        }
+        return head;
+    }
+
+
+    public static void main(String[] args) {
+//        ListNode node = new ListNode(1);
+//        ListNode head = node;
+//        node.next = new ListNode(2).next= new ListNode(3);
+//        System.out.println(head);
+
+//        int[] arr ={1,2,3,3,4,4,5};
+//        ListNode listNode = ListNode.buildListNodeByArray(arr);
+//        System.out.println(deleteDuplication(listNode));
+
+        int[] arr ={1,2,3,4,5};
+        ListNode listNode = ListNode.buildListNodeByArray(arr);
+        ListNode listNode1 = deleteKthToLast(listNode, 2);
+        System.out.println(listNode1);
+
+
+    }
+
+
 
 }
