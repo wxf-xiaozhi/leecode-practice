@@ -14,6 +14,7 @@ public class LeeCodeHotTop100 {
 
     /**
      * leecode 266
+     *
      * @param root
      */
     public TreeNode invertTree(TreeNode root) {
@@ -22,8 +23,8 @@ public class LeeCodeHotTop100 {
     }
 
 
-    public void invertSubTree(TreeNode subNode){
-        if(subNode == null){
+    public void invertSubTree(TreeNode subNode) {
+        if (subNode == null) {
             return;
         }
         TreeNode left = subNode.left;
@@ -36,37 +37,39 @@ public class LeeCodeHotTop100 {
 
     /**
      * leecode 94
+     *
      * @param root
      * @return
      */
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        midOrder(root,result);
+        midOrder(root, result);
         return result;
     }
 
-    public void midOrder(TreeNode subNode, List<Integer> result){
-        if(subNode == null){
+    public void midOrder(TreeNode subNode, List<Integer> result) {
+        if (subNode == null) {
             return;
         }
-        if(subNode.left != null){
-            midOrder(subNode.left,result);
+        if (subNode.left != null) {
+            midOrder(subNode.left, result);
         }
         result.add(subNode.val);
-        if(subNode.right != null){
-            midOrder(subNode.right,result);
+        if (subNode.right != null) {
+            midOrder(subNode.right, result);
         }
     }
 
     /**
      * leecode 206 翻转链表
+     *
      * @param head
      * @return
      */
     public ListNode reverseList(ListNode head) {
         ListNode pre = null;
         ListNode cur = head;
-        while (cur != null){
+        while (cur != null) {
             ListNode next = cur.next;
             cur.next = pre;
             pre = cur;
@@ -77,6 +80,7 @@ public class LeeCodeHotTop100 {
 
     /**
      * leecode 11
+     *
      * @param height
      * @return
      */
@@ -86,13 +90,13 @@ public class LeeCodeHotTop100 {
 
         int maxArea = 0;
         int L = 0;
-        int R = height.length-1;
-        while (L < R){
-            int area = Math.min(height[L],height[R]) * (R-L);
-            maxArea = Math.max(area,maxArea);
-            if(height[L] <= height[R]){
+        int R = height.length - 1;
+        while (L < R) {
+            int area = Math.min(height[L], height[R]) * (R - L);
+            maxArea = Math.max(area, maxArea);
+            if (height[L] <= height[R]) {
                 L++;
-            }else{
+            } else {
                 R++;
             }
         }
@@ -103,6 +107,7 @@ public class LeeCodeHotTop100 {
 
     /**
      * leecode 64
+     *
      * @param grid
      * @return
      */
@@ -130,6 +135,7 @@ public class LeeCodeHotTop100 {
 
     /**
      * leecode 20
+     *
      * @param s
      * @return
      */
@@ -138,23 +144,23 @@ public class LeeCodeHotTop100 {
 //        输出：true
 
         int length = s.length();
-        if(length % 2 ==0){
+        if (length % 2 == 0) {
             return false;
         }
 
 
-        Map<Character,Character> map = new HashMap<>();
-        map.put(')','(');
-        map.put(']','[');
-        map.put('}','{');
+        Map<Character, Character> map = new HashMap<>();
+        map.put(')', '(');
+        map.put(']', '[');
+        map.put('}', '{');
 
         Stack<Character> stack = new Stack<>();
         char[] chars = s.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             Character ch = chars[i];
-            if(!map.containsKey(ch)){
+            if (!map.containsKey(ch)) {
                 stack.push(ch);
-            }else{
+            } else {
                 if (stack.isEmpty() || stack.peek() != map.get(ch)) {
                     return false;
                 }
@@ -173,9 +179,9 @@ public class LeeCodeHotTop100 {
      */
 
 
-
     /**
      * leecode 21
+     *
      * @param list1
      * @param list2
      * @return
@@ -217,19 +223,20 @@ public class LeeCodeHotTop100 {
 
     /**
      * 合并两个链表的递归方法,仅仅将链表合并并未排序
+     *
      * @param list1
      * @param list2
      */
-    public static void recursion(ListNode list1, ListNode list2){
-        if(list1 == null ){
+    public static void recursion(ListNode list1, ListNode list2) {
+        if (list1 == null) {
             return;
         }
-        if(list2 == null){
+        if (list2 == null) {
             return;
         }
         ListNode next1 = list1.next;
         list1.next = list2;
-        recursion(list2,next1);
+        recursion(list2, next1);
     }
 
     class DLinkedNode {
@@ -237,12 +244,19 @@ public class LeeCodeHotTop100 {
         int value;
         DLinkedNode prev;
         DLinkedNode next;
-        public DLinkedNode() {}
-        public DLinkedNode(int _key, int _value) {key = _key; value = _value;}
+
+        public DLinkedNode() {
+        }
+
+        public DLinkedNode(int _key, int _value) {
+            key = _key;
+            value = _value;
+        }
     }
 
     /**
      * leecode 146
+     *
      * @param
      */
     class LRUCache {
@@ -291,14 +305,14 @@ public class LeeCodeHotTop100 {
                     cache.remove(tail.key);
                     --size;
                 }
-            }
-            else {
+            } else {
                 // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
                 node.value = value;
                 moveToHead(node);
             }
 
         }
+
         private void addToHead(DLinkedNode node) {
             node.prev = head;
             node.next = head.next;
@@ -326,6 +340,7 @@ public class LeeCodeHotTop100 {
 
     /**
      * leecode 25
+     *
      * @param head
      * @param k
      * @return
@@ -361,16 +376,16 @@ public class LeeCodeHotTop100 {
 
     }
 
-    public static void subListNode(ListNode node ,int k,List<ListNode> list){
-        int count =1 ;
+    public static void subListNode(ListNode node, int k, List<ListNode> list) {
+        int count = 1;
         list.add(node);
-        while (node != null){
+        while (node != null) {
             node = node.next;
             count++;
-            if(count == k){
+            if (count == k) {
                 ListNode next = node;
-                subListNode(next.next,k,list);
-                if(node != null){
+                subListNode(next.next, k, list);
+                if (node != null) {
                     node.next = null;
 
                 }
@@ -395,6 +410,7 @@ public class LeeCodeHotTop100 {
 
     /**
      * leecode 24 两两交换链表中的节点 递归
+     *
      * @param head
      * @return
      */
@@ -412,9 +428,9 @@ public class LeeCodeHotTop100 {
 
     /**
      * leecode 560
+     *
      * @param nums
-     * @param k
-     * 注意要连续，所以先确定最后一个数，倒着遍历，判断和是不是等于k,可能更方便
+     * @param k    注意要连续，所以先确定最后一个数，倒着遍历，判断和是不是等于k,可能更方便
      * @return
      */
     public static int subarraySum(int[] nums, int k) {
@@ -431,12 +447,42 @@ public class LeeCodeHotTop100 {
         return count;
     }
 
+    /**
+     * leecode 102
+     *
+     * @param root
+     * @return
+     */
+    public static List<List<Integer>> levelOrder(TreeNode root) {
+//        输入：root = [3,9,20,null,null,15,7]
+//        输出：[[3],[9,20],[15,7]]
+        List<List<Integer>> ans1 = new ArrayList<>();
+        LinkedHashMap<Integer, List<Integer>> map = new LinkedHashMap();
+        myDeep(root, map, 0);
+        for (Map.Entry<Integer, List<Integer>> integerListEntry : map.entrySet()) {
+            ans1.add(integerListEntry.getValue());
+        }
+        return ans1;
+    }
+
+    private static void myDeep(TreeNode node, LinkedHashMap<Integer, List<Integer>> map, Integer level) {
+        if (node == null) {
+            return;
+        }
+        if (map.get(level) == null) {
+            List<Integer> list = new ArrayList<>();
+            map.put(level, list);
+        }
+        map.get(level).add(node.val);
+        myDeep(node.left, map, (level + 1));
+        myDeep(node.right, map, (level + 1));
+    }
 
 
     public static void main(String[] args) {
-        int[] arr1 =  {1,2,4};
-        int[] arr2 =  {1,3,4};
-        int[] arr3 =  {1,2,3,4,5};
+        int[] arr1 = {1, 2, 4};
+        int[] arr2 = {1, 3, 4};
+        int[] arr3 = {1, 2, 3, 4, 5};
 //        ListNode listNode1 = buildListNodeByArray(arr1);
 //        ListNode listNode2 = buildListNodeByArray(arr2);
 //        ListNode mergeTwoLists = mergeTwoLists(listNode1, listNode2);
@@ -446,12 +492,14 @@ public class LeeCodeHotTop100 {
 //        ListNode reverseKGroup = reverseKGroup(listNode3,2);
 //        System.out.println(reverseKGroup);
 
-        int[] arr4 ={1,1,1};
-
-        System.out.println(subarraySum(arr4, 2));
+//        int[] arr4 ={1,1,1};
+//
+//        System.out.println(subarraySum(arr4, 2));
+        Object[] arr = {3, 9, 20, null, null, 15, 7};
+        TreeNode treeNode = TreeNode.buildTreeNodeByArray(arr);
+        Collection<List<Integer>> lists = levelOrder(treeNode);
+        System.out.println(lists);
     }
-
-
 
 
 }
