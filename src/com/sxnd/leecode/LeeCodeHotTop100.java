@@ -479,6 +479,23 @@ public class LeeCodeHotTop100 {
     }
 
 
+    /**
+     * leecode 53
+     * @param nums
+     * @return
+     */
+    public static int maxSubArray(int[] nums) {
+//        输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+//        输出：6
+        int pre = 0, maxAns = nums[0];
+        for (int x : nums) {
+            pre = Math.max(pre + x, x);
+            maxAns = Math.max(maxAns, pre);
+        }
+        return maxAns;
+    }
+
+
     public static void main(String[] args) {
         int[] arr1 = {1, 2, 4};
         int[] arr2 = {1, 3, 4};
@@ -495,10 +512,15 @@ public class LeeCodeHotTop100 {
 //        int[] arr4 ={1,1,1};
 //
 //        System.out.println(subarraySum(arr4, 2));
-        Object[] arr = {3, 9, 20, null, null, 15, 7};
-        TreeNode treeNode = TreeNode.buildTreeNodeByArray(arr);
-        Collection<List<Integer>> lists = levelOrder(treeNode);
-        System.out.println(lists);
+//        Object[] arr = {3, 9, 20, null, null, 15, 7};
+//        TreeNode treeNode = TreeNode.buildTreeNodeByArray(arr);
+//        Collection<List<Integer>> lists = levelOrder(treeNode);
+//        System.out.println(lists);
+
+        int[] nums =  {-2,1,-3,4,-1,2,1,-5,4};
+        int i = maxSubArray(nums);
+        System.out.println(i);
+
     }
 
 

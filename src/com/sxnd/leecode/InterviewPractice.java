@@ -183,6 +183,9 @@ public class InterviewPractice {
 
     /**
      * leecode 19 的解法2
+     *从 ListNode node = head;行开始分析，
+     * node标识当前指针，
+     * node.next属于指针里面的next指针
      *
      * node = next属于是指针往后移了一位
      * node.next = node.next.next 才是将node的next指针指向了下下个节点
@@ -197,6 +200,12 @@ public class InterviewPractice {
         while(countNode != null){
             sum++;
             countNode = countNode.next;
+        }
+        if(head == null ){
+            return null;
+        }
+        if(sum == n ){
+            return head.next;
         }
         int index = 0;
         ListNode node = head;
@@ -213,6 +222,27 @@ public class InterviewPractice {
         return head;
     }
 
+    /**
+     * leecode 560
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int subarraySum(int[] nums, int k) {
+        int count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int sum = 0;
+            for (int j = i; j >=0 ; j--) {
+                sum+= nums[j];
+                if(sum == k){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+
 
     public static void main(String[] args) {
 //        ListNode node = new ListNode(1);
@@ -224,12 +254,15 @@ public class InterviewPractice {
 //        ListNode listNode = ListNode.buildListNodeByArray(arr);
 //        System.out.println(deleteDuplication(listNode));
 
-        int[] arr ={1,2,3,4,5};
-        ListNode listNode = ListNode.buildListNodeByArray(arr);
-        ListNode listNode1 = deleteKthToLast1(listNode, 2);
-        System.out.println(listNode1);
+//        int[] arr ={1,2,3,4,5};
+//        ListNode listNode = ListNode.buildListNodeByArray(arr);
+//        ListNode listNode1 = deleteKthToLast1(listNode, 2);
+//        System.out.println(listNode1);
+
+        int nums[] ={1,2,3};
 
 
+        System.out.println(subarraySum(nums,3));
     }
 
 
