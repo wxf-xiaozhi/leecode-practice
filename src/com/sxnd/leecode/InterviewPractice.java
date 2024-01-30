@@ -182,7 +182,10 @@ public class InterviewPractice {
     }
 
     /**
-     * leecode 19 的错误解法，但并不知道哪里错误？
+     * leecode 19 的解法2
+     *
+     * node = next属于是指针往后移了一位
+     * node.next = node.next.next 才是将node的next指针指向了下下个节点
      * @param head
      * @param n
      * @return
@@ -203,6 +206,7 @@ public class InterviewPractice {
             int seq = (sum-n);
             if(index == seq){
                 next = next.next;
+                node.next = next;
             }
             node = next;
         }
@@ -222,7 +226,7 @@ public class InterviewPractice {
 
         int[] arr ={1,2,3,4,5};
         ListNode listNode = ListNode.buildListNodeByArray(arr);
-        ListNode listNode1 = deleteKthToLast(listNode, 2);
+        ListNode listNode1 = deleteKthToLast1(listNode, 2);
         System.out.println(listNode1);
 
 
