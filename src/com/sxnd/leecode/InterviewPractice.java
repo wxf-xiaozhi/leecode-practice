@@ -124,7 +124,8 @@ public class InterviewPractice {
             }
             p = next;
         };
-
+        // 此处错误原因：只是将p1指针往后移了一位。并没有删除元素
+        // 和deleteKthToLast1的错误原因有相似之处
         ListNode p1 = dump;
         while(p1 != null){
             while(p1 != null && mySet.contains(p1.val) ){
