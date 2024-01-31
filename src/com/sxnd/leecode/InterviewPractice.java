@@ -137,6 +137,30 @@ public class InterviewPractice {
     }
 
     /**
+     *  集度面试题
+     *  给出一个无序单向链表，删除链表中的重复元素 input: 1->3->1->3->5 output: 1->3->5
+     * @param head
+     * @return
+     */
+    public static ListNode deleteDubElement(ListNode head){
+        Set<Integer> mySet = new HashSet<>();
+        ListNode pre = null;
+        ListNode cur = head;
+        while(cur != null){
+            int val = cur.val;
+            ListNode next = cur.next;
+            if(mySet.contains(val) && next != null){
+                pre.next = next;
+            }else{
+                pre = cur;
+            }
+            mySet.add(val);
+            cur = next;
+        }
+        return head;
+    }
+
+    /**
      * leecode 83
      * @param head
      * @return
@@ -156,10 +180,6 @@ public class InterviewPractice {
         }
 
         return head;
-
-
-
-
     }
 
 //    innodb RR
@@ -279,9 +299,9 @@ public class InterviewPractice {
 //        node.next = new ListNode(2).next= new ListNode(3);
 //        System.out.println(head);
 
-        int[] arr ={1,2,3,2,4,4,5};
-        ListNode listNode = ListNode.buildListNodeByArray(arr);
-        System.out.println(deleteDuplication(listNode));
+//        int[] arr ={1,2,3,2,4,4,5};
+//        ListNode listNode = ListNode.buildListNodeByArray(arr);
+//        System.out.println(deleteDuplication(listNode));
 
 //        int[] arr ={1,2,3,4,5};
 //        ListNode listNode = ListNode.buildListNodeByArray(arr);
@@ -292,6 +312,11 @@ public class InterviewPractice {
 //
 //
 //        System.out.println(subarraySum(nums,3));
+
+        int[] myarr = {1,3,1,3,5};
+        ListNode listNode = ListNode.buildListNodeByArray(myarr);
+        ListNode listNode1 = deleteDubElement(listNode);
+        System.out.println(listNode1);
     }
 
 
