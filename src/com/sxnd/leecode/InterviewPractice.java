@@ -106,10 +106,12 @@ public class InterviewPractice {
 
     /**
      * 删除链表重复元素
+     *
+     * 此解法错误
      * @param pHead
      * @return
      */
-    public static ListNode deleteDuplication(ListNode pHead) {
+    public static ListNode deleteDuplication1(ListNode pHead) {
         Set<Integer> mySet = new HashSet<>();
         ListNode dump = new ListNode(-1);
         dump.next = pHead;
@@ -131,6 +133,32 @@ public class InterviewPractice {
             p1 = p1.next;
         };
         return dump.next;
+    }
+
+    /**
+     * leecode 83
+     * @param head
+     * @return
+     */
+    public static ListNode deleteDuplication(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+
+        ListNode cur = head;
+        while (cur.next != null) {
+            if (cur.val == cur.next.val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+
+        return head;
+
+
+
+
     }
 
 //    innodb RR
@@ -250,19 +278,19 @@ public class InterviewPractice {
 //        node.next = new ListNode(2).next= new ListNode(3);
 //        System.out.println(head);
 
-//        int[] arr ={1,2,3,3,4,4,5};
-//        ListNode listNode = ListNode.buildListNodeByArray(arr);
-//        System.out.println(deleteDuplication(listNode));
+        int[] arr ={1,2,3,2,4,4,5};
+        ListNode listNode = ListNode.buildListNodeByArray(arr);
+        System.out.println(deleteDuplication(listNode));
 
 //        int[] arr ={1,2,3,4,5};
 //        ListNode listNode = ListNode.buildListNodeByArray(arr);
 //        ListNode listNode1 = deleteKthToLast1(listNode, 2);
 //        System.out.println(listNode1);
-
-        int nums[] ={1,2,3};
-
-
-        System.out.println(subarraySum(nums,3));
+//
+//        int nums[] ={1,2,3};
+//
+//
+//        System.out.println(subarraySum(nums,3));
     }
 
 
