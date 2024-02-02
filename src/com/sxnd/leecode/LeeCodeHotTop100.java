@@ -495,6 +495,60 @@ public class LeeCodeHotTop100 {
         return maxAns;
     }
 
+    /**
+     * 160. 相交链表
+     *
+     * 此题主要了解思路，用代码无法验证，因为使用的链表的构造方式与leecode不同
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+//        listA = [4,1,8,4,5], listB = [5,6,1,8,4,5] result = [8,4,5]
+//        ListNode pa = headA;
+//        while (pa != null){
+//            ListNode paNext = pa.next;
+//            ListNode pb = headB;
+//            while (pb != null ){
+//                ListNode pbNext = pb.next;
+//                if(pa == pb){
+//                    return pa;
+//                }
+//                pb = pbNext;
+//            }
+//            pa = paNext;
+//        }
+//        return null;
+
+
+//        Set<ListNode> visited = new HashSet<ListNode>();
+//        ListNode temp = headA;
+//        while (temp != null) {
+//            visited.add(temp);
+//            temp = temp.next;
+//        }
+//        temp = headB;
+//        while (temp != null) {
+//            if (visited.contains(temp)) {
+//                return temp;
+//            }
+//            temp = temp.next;
+//        }
+//        return null;
+
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode pA = headA, pB = headB;
+        while (pA != pB) {
+            pA = pA == null ? headB : pA.next;
+            pB = pB == null ? headA : pB.next;
+        }
+        return pA;
+
+
+    }
+
 
     public static void main(String[] args) {
         int[] arr1 = {1, 2, 4};
@@ -516,10 +570,16 @@ public class LeeCodeHotTop100 {
 //        TreeNode treeNode = TreeNode.buildTreeNodeByArray(arr);
 //        Collection<List<Integer>> lists = levelOrder(treeNode);
 //        System.out.println(lists);
-
-        int[] nums =  {-2,1,-3,4,-1,2,1,-5,4};
-        int i = maxSubArray(nums);
-        System.out.println(i);
+//
+//        int[] nums =  {-2,1,-3,4,-1,2,1,-5,4};
+//        int i = maxSubArray(nums);
+//        System.out.println(i);
+        int[] arrA = {1,9,1,2,4};
+        int[] arrB = {3,2,4};
+        ListNode listA = ListNode.buildListNodeByArray(arrA);
+        ListNode listB = ListNode.buildListNodeByArray(arrB);
+        ListNode intersectionNode = getIntersectionNode(listA, listB);
+        System.out.println(intersectionNode);
 
     }
 

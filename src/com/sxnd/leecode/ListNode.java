@@ -35,6 +35,10 @@ public class ListNode {
         return sb.toString();
     }
 
+//    @Override
+//    public boolean equals(ListNode obj) {
+//        return (this.val == obj.val && this.next == obj.next);
+//    }
 
     public static ListNode buildListNodeByArray(int[] arr){
         ListNode cur = new ListNode(0);
