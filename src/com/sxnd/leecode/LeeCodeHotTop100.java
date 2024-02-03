@@ -536,6 +536,7 @@ public class LeeCodeHotTop100 {
 //        }
 //        return null;
 
+        // 这个题这种解法，多看官方题解，太妙了
         if (headA == null || headB == null) {
             return null;
         }
