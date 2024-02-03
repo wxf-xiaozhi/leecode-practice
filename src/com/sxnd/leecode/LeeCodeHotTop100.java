@@ -180,7 +180,7 @@ public class LeeCodeHotTop100 {
 
 
     /**
-     * leecode 21
+     * leecode 21、合并两个有序链表
      *
      * @param list1
      * @param list2
@@ -219,6 +219,32 @@ public class LeeCodeHotTop100 {
         }
 
 
+    }
+
+    /**
+     * leecode 101 对称二叉树
+     * @param root
+     * @return
+     */
+    public static boolean isSymmetric(TreeNode root) {
+        if(root == null){
+            return true;
+        }
+        return isSame(root.left,root.right);
+
+    }
+
+    public static boolean isSame(TreeNode  node1,TreeNode node2){
+        if(node1 == null && node2 == null){
+            return true;
+        }else if(node1 == null && node2 != null){
+            return false;
+        }else if(node1 != null && node2 == null){
+            return false;
+        }else{
+            boolean a = (node1.val == node2.val);
+            return a && isSame(node1.left,node2.right) && isSame(node1.right,node2.left);
+        }
     }
 
     /**
@@ -581,6 +607,25 @@ public class LeeCodeHotTop100 {
             slow = slow.next;
         }
         return true;
+    }
+
+    /**
+     * leecode 142. 环形链表 II
+     * @param head
+     * @return
+     */
+    public ListNode detectCycle(ListNode head) {
+
+        // 解法一，hash表
+        Set<ListNode> mySet = new HashSet<>();
+        ListNode cur = head;
+        while (cur != null){
+            if(!mySet.add(cur)){
+                return cur;
+            }
+            cur = cur.next;
+        }
+        return null;
     }
 
 
