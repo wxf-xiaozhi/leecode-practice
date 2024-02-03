@@ -520,6 +520,7 @@ public class LeeCodeHotTop100 {
 //        }
 //        return null;
 
+        // 官方解法第一种
 
 //        Set<ListNode> visited = new HashSet<ListNode>();
 //        ListNode temp = headA;
@@ -548,6 +549,38 @@ public class LeeCodeHotTop100 {
         return pA;
 
 
+    }
+
+    /**
+     * leecode 141 环形链表
+     * @param head
+     * @return
+     */
+    public boolean hasCycle(ListNode head) {
+        // 解法一，使用hash表
+//        Set<ListNode> set = new HashSet<>();
+//        ListNode node = head;
+//        while (node != null){
+//            if(!set.add(node)){
+//               return true;
+//            }
+//            ListNode next = node.next;
+//            node = next;
+//        }
+//        return false;
+
+        // 解法二、块慢指针，如果有环，则慢指针会追上快指针
+        ListNode slow = head;
+        ListNode fast = slow.next;
+        while (fast != slow){
+            if(fast == null || slow == null){
+                return false;
+            }
+            // 快指针会一次跳两下
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return true;
     }
 
 
