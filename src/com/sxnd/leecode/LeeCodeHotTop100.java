@@ -628,6 +628,86 @@ public class LeeCodeHotTop100 {
         return null;
     }
 
+    /**
+     * leecode 1143. 最长公共子序列
+     * @param text1
+     * @param text2
+     * @return
+     */
+    public int longestCommonSubsequence(String text1, String text2) {
+        return 0;
+    }
+
+    /**
+     * 70. 爬楼梯
+     * @param n
+     * @return
+     */
+    public int climbStairs(int n) {
+        // 自己写的，超出时间限制，感觉是对的
+//        if(n <= 0){
+//            return 0;
+//        }
+//        if(n == 1){
+//            return 1;
+//        }
+//        if(n == 2){
+//            return 2;
+//        }
+//        return climbStairs(n-1)+climbStairs(n-2);
+
+        // f(x) = f(x-1)+f(x-2),滚动数组思想
+        int p = 0, q = 0, r = 1;
+        for (int i = 1; i <= n; ++i) {
+            p = q;
+            q = r;
+            r = p + q;
+        }
+        return r;
+
+
+    }
+
+    /**
+     * 118. 杨辉三角
+     * @param numRows
+     * @return
+     */
+    public static List<List<Integer>> generate(int numRows) {
+        return mydeep(numRows);
+    }
+    public static List<List<Integer>> mydeep(int numRows){
+        if(numRows < 1){
+            return null;
+        }
+        if(numRows == 1){
+            List<List<Integer>> ans = new ArrayList<>();
+            List<Integer> rowList = Arrays.asList(new Integer[]{1});
+            ans.add(rowList);
+            return ans ;
+        }
+        if (numRows == 2){
+            List<List<Integer>> ans = new ArrayList<>();
+            List<Integer> rowList1 = Arrays.asList(new Integer[]{1});
+            List<Integer> rowList = Arrays.asList(new Integer[]{1,1});
+            ans.add(rowList1);
+            ans.add(rowList);
+            return ans;
+        }
+        List<Integer> rowList = new ArrayList<>();
+        rowList.add(1);
+        List<List<Integer>> ans = mydeep(numRows - 1);
+        List<Integer> lastRowList = ans.get(ans.size()-1);
+        for (int i = 0; i < lastRowList.size()-1; i++) {
+            rowList.add(lastRowList.get(i)+ lastRowList.get(i+1));
+
+        }
+        rowList.add(1);
+        ans.add(rowList);
+        return ans;
+
+    }
+
 
     public static void main(String[] args) {
         int[] arr1 = {1, 2, 4};
@@ -653,12 +733,16 @@ public class LeeCodeHotTop100 {
 //        int[] nums =  {-2,1,-3,4,-1,2,1,-5,4};
 //        int i = maxSubArray(nums);
 //        System.out.println(i);
-        int[] arrA = {1,9,1,2,4};
-        int[] arrB = {3,2,4};
-        ListNode listA = ListNode.buildListNodeByArray(arrA);
-        ListNode listB = ListNode.buildListNodeByArray(arrB);
-        ListNode intersectionNode = getIntersectionNode(listA, listB);
-        System.out.println(intersectionNode);
+//        int[] arrA = {1,9,1,2,4};
+//        int[] arrB = {3,2,4};
+//        ListNode listA = ListNode.buildListNodeByArray(arrA);
+//        ListNode listB = ListNode.buildListNodeByArray(arrB);
+//        ListNode intersectionNode = getIntersectionNode(listA, listB);
+//        System.out.println(intersectionNode);
+
+        List<List<Integer>> generate = generate(1);
+        System.out.println(generate);
+
 
     }
 
