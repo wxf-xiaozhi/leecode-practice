@@ -291,6 +291,41 @@ public class InterviewPractice {
         return count;
     }
 
+    /**
+     * 88. 合并两个有序数组
+     * @param A
+     * @param m
+     * @param B
+     * @param n
+     */
+    public static void merge(int A[], int m, int B[], int n) {
+        int[] ans = new int[n+m];
+        int i = 0;
+        int j = 0;
+        int cur = 0;
+        while(i < m || j < n){
+            if(i == m ){
+                cur = B[j];
+                j++;
+            }else if(j == n){
+                cur = A[i];
+                i++;
+            }else if(A[i] <= B[j]){
+                cur = A[i];
+                i++;
+            }else{
+                cur = B[j];
+                j++;
+            }
+            ans[j+i-1] = cur;
+
+        }
+        for (int is = 0; is != m + n; ++is) {
+            A[is] = ans[is];
+        }
+
+    }
+
 
 
     public static void main(String[] args) {
@@ -313,10 +348,13 @@ public class InterviewPractice {
 //
 //        System.out.println(subarraySum(nums,3));
 
-        int[] myarr = {1,3,1,3,5};
-        ListNode listNode = ListNode.buildListNodeByArray(myarr);
-        ListNode listNode1 = deleteDubElement(listNode);
-        System.out.println(listNode1);
+//        int[] myarr = {1,3,1,3,5};
+//        ListNode listNode = ListNode.buildListNodeByArray(myarr);
+//        ListNode listNode1 = deleteDubElement(listNode);
+//        System.out.println(listNode1);
+        int[] A = {4,5,6,0,0,0};
+        int[] B = {1,2,3};
+        merge(A,3,B,3);
     }
 
 
