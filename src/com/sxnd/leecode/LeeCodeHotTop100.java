@@ -708,6 +708,63 @@ public class LeeCodeHotTop100 {
 
     }
 
+    /**
+     * 283. 移动零
+     * @param nums
+     */
+    public static void moveZeroes(int[] nums) {
+//        输入: nums = [0,1,0,3,12]
+//        输出: [1,3,12,0,0]
+
+        // 自己的写法，空间复杂度太高
+//        List<Integer> arr = new ArrayList<>();
+//        for (int i = 0; i < nums.length; i++) {
+//            if(nums[i] != 0){
+//                arr.add(nums[i]);
+//            }
+//
+//        }
+//        int i = 0;
+//        while ( i < arr.size()) {
+//            nums[i] = arr.get(i);
+//            i++;
+//        }
+//        for (int j = i; j < nums.length ; j++) {
+//            nums[j] = 0;
+//        }
+
+        // 官方解法 双指针解法,左指针指向当前已经处理好的序列的尾部，右指针指向待处理序列的头部
+        int p1 = 0,p2 = 0;
+        while (p1 < nums.length){
+            if(nums[p1] != 0){
+                int temp = nums[p1];
+                nums[p1] = nums[p2];
+                nums[p2] = temp;
+                p2++;
+            }
+            p1++;
+        }
+
+    }
+
+    /**
+     * leecode 104. 二叉树的最大深度
+     * @param root
+     * @return
+     */
+    public static int maxDepth(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        return mydeep1(root,1);
+    }
+
+    public static int mydeep1(TreeNode root,int deep){
+        if(root == null){
+            return 0;
+        }
+        return deep+Math.max(mydeep1(root.left,deep),mydeep1(root.right,1));
+    }
 
     public static void main(String[] args) {
         int[] arr1 = {1, 2, 4};
@@ -740,9 +797,19 @@ public class LeeCodeHotTop100 {
 //        ListNode intersectionNode = getIntersectionNode(listA, listB);
 //        System.out.println(intersectionNode);
 
-        List<List<Integer>> generate = generate(1);
-        System.out.println(generate);
+//        List<List<Integer>> generate = generate(1);
+//        System.out.println(generate);
 
+//        int[] nums = {0,1,0,3,0,12};
+//        moveZeroes(nums);
+//        for (int num : nums) {
+//            System.out.println(num);
+//        }
+
+        Object[] arr = {3,9,20,null,null,15,7};
+        TreeNode treeNode = TreeNode.buildTreeNodeByArray(arr);
+        int i = maxDepth(treeNode);
+        System.out.println(i);
 
     }
 
