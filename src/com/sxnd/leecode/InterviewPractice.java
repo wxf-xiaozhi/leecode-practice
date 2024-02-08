@@ -231,7 +231,7 @@ public class InterviewPractice {
     }
 
     /**
-     * leecode 19 的解法2
+     * leecode 19 的解法2  猿辅导
      *从 ListNode node = head;行开始分析，
      * node标识当前指针，
      * node.next属于指针里面的next指针
@@ -292,7 +292,7 @@ public class InterviewPractice {
     }
 
     /**
-     * 88. 合并两个有序数组
+     * 88. 合并两个有序数组  集度
      * @param A
      * @param m
      * @param B
@@ -324,6 +324,44 @@ public class InterviewPractice {
             A[is] = ans[is];
         }
 
+    }
+
+    /**
+     * 11. 盛最多水的容器
+     * @param height
+     * @return
+     */
+    public int maxArea(int[] height) {
+//        输入：[1,8,6,2,5,4,8,3,7]
+//        输出：49
+
+        int maxArea = 0;
+        // 自己的写法，超出时间限制
+
+//        for (int i = 0; i < height.length; i++) {
+//            for (int j = (i+1); j < height.length; j++) {
+//                int step = j-i;
+//                int minHeight =Math.min(height[i],height[j]);
+//                maxArea = Math.max((step*minHeight),maxArea);
+//            }
+//        }
+//        return maxArea;
+        // 双指针
+
+        int l = 0;
+        int r = height.length-1;
+
+        while (l < r){
+            int step = r -l;
+            if(height[l] < height[r]){
+                maxArea = Math.max(step * height[l++] ,maxArea);
+            }else{
+                maxArea = Math.max(step * height[r--],maxArea);
+            }
+
+
+        }
+        return maxArea;
     }
 
 

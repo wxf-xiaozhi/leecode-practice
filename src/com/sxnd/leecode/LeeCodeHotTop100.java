@@ -1,6 +1,7 @@
 package com.sxnd.leecode;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author GW00305020
@@ -766,6 +767,181 @@ public class LeeCodeHotTop100 {
         return deep+Math.max(mydeep1(root.left,deep),mydeep1(root.right,1));
     }
 
+    /**
+     * 20. 有效的括号
+     * @param s
+     * @return
+     */
+    public static boolean isValid1(String s) {
+        Map<Character,Character> map =new HashMap<>();
+        map.put(')','(');
+        map.put(']','[');
+        map.put('}','{');
+        char[] chars = s.toCharArray();
+        if(chars.length % 2 == 1){
+            return false;
+        }
+
+        Stack<Character> stack = new Stack<>();
+        for (char aChar : chars) {
+            if(aChar == '(' || aChar == '[' || aChar == '{' ){
+                stack.push(aChar);
+            }else{
+                Character character = map.get(aChar);
+                if(stack.isEmpty() || character != stack.peek()){
+                    return false;
+                }
+                stack.pop();
+            }
+        }
+        if(!stack.isEmpty()){
+            return false;
+        }
+        return true;
+
+    }
+
+    /**
+     * 35. 搜索插入位置
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int searchInsert(int[] nums, int target) {
+//        输入: nums = [1,3,5,6], target = 5
+//        输出: 2
+
+//        输入: nums = [1,3,5,6], target = 2
+//        输出: 1
+
+        int r = nums.length -1;
+        int l = 0;
+        int pos = (l + r)/2;
+        while (l <= r){
+            if(nums[pos]<target)
+                l=pos+1;
+            else {
+                r=pos-1;
+            }
+            pos = (l + r)/2;
+        }
+
+        return l;
+
+    }
+
+    /**
+     * leecode 48. 旋转图像
+     * @param matrix
+     */
+    public static void rotate(int[][] matrix) {
+        int n = matrix.length;
+        int curRow = 0;
+        int curCol = 0;
+        int max = n -1;
+//        (0,0) = > (0 max)
+//        (0,1) => (1,max)
+//            上面
+//        (curRow,curCol)  ==> ( curCol,max -curRow)
+//
+//        (1,1) =>(1,2)
+//        (0,2)==>(2,3)
+
+//        右边
+//        (1,3) => (3,2)
+//        (2,3) ==> (3,1)
+//
+//        (curRow,curCol) => (curCol,max-curRow)
+//        (0,3) => (3,3)
+//        (1,3) ==>(3,2)
+
+//        下面
+//        (3,3) ==>(3,0)
+//        (curRow,curCol) ==> (curCol,max -curRow)
+//        (3,1) =>(2,0)
+//        (3,2) =>(2,0)
+
+//        左面
+//        (curRow,curCol) ==>(curCol,max-curRow)
+//
+//        (1,0) ==>(0,2)
+
+
+//        int temp = matrix[curRow][curCol];
+//        matrix[curRow][curCol] = matrix[curCol,max - curRow];
+        int[][] myMa = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                myMa[i][j] = matrix[j][n-1-i];
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = myMa[i][j];
+            }
+        }
+
+    }
+
+    /**
+     * 56. 合并区间
+     * @param intervals
+     * @return
+     */
+    public static int[][] merge(int[][] intervals) {
+//        输入：intervals = [[1,3],[2,6],[8,10],[15,18]]
+//        输出：[[1,6],[8,10],[15,18]]
+//        int p1 = 0;
+//        int p2 = 1;
+//        List<List<Integer>> result = new ArrayList<>();
+//        int[] a = intervals[p1];
+//
+//        while (p2 < intervals.length){
+//            int[] b = intervals[p2];
+//            if(a[a.length-1] > b[0]){
+//                int l = Math.min(a[0],b[0]);
+//                int r = Math.max(a[a.length-1],b[b.length-1]);
+//                a = new int[]{l, r};
+//                result.add(Arrays.stream(a).boxed().collect(Collectors.toList()));
+//            }else{
+//                result.add(Arrays.stream(b).boxed().collect(Collectors.toList()));
+//                p1++;
+//            }
+//            p2++;
+//        }
+//        System.out.println(result);
+
+        if(intervals.length == 0){
+            return new int[0][2];
+        }
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[1] - o2[1];
+            }
+        });
+        List<int[]> merge = new ArrayList<>();
+        for (int i = 0; i < intervals.length; i++) {
+            int L = intervals[i][0];
+            int R = intervals[i][1];
+            if(merge.size() == 0){
+                merge.add(new int[]{L,R});
+            }else if(merge.get(merge.size()-1)[1] < L){
+                merge.add(new int[]{L,R});
+            }else{
+                merge.get(merge.size() - 1)[1] = Math.max(R,merge.get(merge.size()-1)[1]);
+            }
+        }
+        return merge.toArray(new int[merge.size()][]);
+
+
+    }
+
+
+
+
+
     public static void main(String[] args) {
         int[] arr1 = {1, 2, 4};
         int[] arr2 = {1, 3, 4};
@@ -806,10 +982,32 @@ public class LeeCodeHotTop100 {
 //            System.out.println(num);
 //        }
 
-        Object[] arr = {3,9,20,null,null,15,7};
-        TreeNode treeNode = TreeNode.buildTreeNodeByArray(arr);
-        int i = maxDepth(treeNode);
-        System.out.println(i);
+//        Object[] arr = {3,9,20,null,null,15,7};
+//        TreeNode treeNode = TreeNode.buildTreeNodeByArray(arr);
+//        int i = maxDepth(treeNode);
+//        System.out.println(i);
+
+//        String s = "){";
+//        boolean valid1 = isValid1(s);
+//        System.out.println(valid1);
+
+
+        //        输入: nums = [1,3,5,6], target = 5
+//        输出: 2
+
+//        输入: nums = [1,3,5,6], target = 2
+//        输出: 1
+
+//        int[] nums = {1,3,5,6} ;
+//        int i = searchInsert(nums, 5);
+//        System.out.println(i);
+//
+//        int[] nums = {1,3,5,6} ;
+//        int i1 = searchInsert(nums, 2);
+//        System.out.println(i1);
+
+        int[][] inter = {{1,3},{2,6},{8,10},{15,18}};
+        merge(inter);
 
     }
 
