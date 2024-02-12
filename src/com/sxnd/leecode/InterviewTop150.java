@@ -76,6 +76,65 @@ public class InterviewTop150 {
     }
 
     /**
+     * 80. 删除有序数组中的重复项 II
+     * @param nums
+     * @return
+     */
+    public static int removeDuplicates2(int[] nums) {
+//        输入：nums = [0,0,1,1,1,1,2,3,3]
+//        输出：7, nums = [0,0,1,1,2,3,3]
+        // 官方写法，因为数组是有序数组，且最多两个相同，因此监测方式nums[slow-2] != nums[fast]
+        int n = nums.length;
+        if (n <= 2) {
+            return n;
+        }
+        int slow = 2, fast = 2;
+        while (fast < n) {
+            if (nums[slow - 2] != nums[fast]) {
+                nums[slow] = nums[fast];
+                ++slow;
+            }
+            ++fast;
+        }
+        return slow;
+
+    }
+
+    /**
+     * 169. 多数元素
+     * @param nums
+     * @return
+     */
+    public int majorityElement(int[] nums) {
+//        输入：nums = [3,2,3]
+//        输出：3
+        // 自己写法
+//        int n = nums.length;
+//        int x = n/2;
+//        int result = nums[0];
+//        Arrays.sort(nums);
+//        int count = 1;
+//        for (int i = 1; i < nums.length; i++) {
+//            if(nums[i] == nums[i-1]){
+//                count++;
+//                if(count > x){
+//                    result = nums[i];
+//                    break;;
+//                }
+//            }else{
+//                count =1;
+//            }
+//        }
+//        return result;
+
+        // 官方解法
+        int n = nums.length;
+        Arrays.sort(nums);
+        return nums[n/2];
+
+    }
+
+    /**
      * 27. 移除元素
      * @param nums
      * @param val
@@ -109,5 +168,8 @@ public class InterviewTop150 {
 
         int[] a ={1,1,2};
         removeDuplicates(a);
+
+        int[] b = {0,0,1,1,1,1,2,3,3};
+        removeDuplicates2(b);
     }
 }
