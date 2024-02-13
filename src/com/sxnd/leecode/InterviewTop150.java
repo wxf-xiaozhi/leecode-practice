@@ -162,6 +162,62 @@ public class InterviewTop150 {
         return p1;
     }
 
+    /**
+     * 6. Z 字形变换,此题比较难，我只能看懂，写是肯定写不出来的
+     * 设 r = numRows;
+     * Z字形的变换周期为 t=r+r-2,每个周期占用矩阵的 1+r-2= r-1列
+     * 所以矩阵总的列数为 c = n/t*(r-1),
+     *
+     *
+     * 为啥是(n + t - 1) / t * (r - 1); 而不是 n / t * (r - 1);
+     * （n + t - 1）/ t 题目希望向上取整，因此，添加（t - 1）个元素，无论 n / t 的余数是多少，都能被舍去，并且可以向上取整
+     *
+     *  对于（n / t + 1）假设 n=10， t=5，那么需要开辟 3 列，而使用（n + t - 1）/ t = 2列，节省了开辟的列数
+     * @param s
+     * @param numRows
+     * @return
+     */
+    public static String convert(String s, int numRows) {
+//        PAYPALISHIRING
+
+//        P   A   H   N
+//        A P L S I I G
+//        Y   I   R
+
+//        PAHNAPLSIIGYIR
+
+
+        int n = s.length(), r = numRows;
+        if (r == 1 || r >= n) {
+            return s;
+        }
+        int t = r * 2 - 2;
+        int c = (n + t - 1) / t * (r - 1);
+        char[][] mat = new char[r][c];
+        for (int i = 0, x = 0, y = 0; i < n; ++i) {
+            mat[x][y] = s.charAt(i);
+            if (i % t < r - 1) {
+                ++x; // 向下移动
+            } else {
+                --x;
+                ++y; // 向右上移动
+            }
+        }
+        StringBuffer ans = new StringBuffer();
+        for (char[] row : mat) {
+            for (char ch : row) {
+                if (ch != 0) {
+                    ans.append(ch);
+                }
+            }
+        }
+        return ans.toString();
+
+
+
+
+    }
+
     public static void main(String[] args) {
 //        int[] a ={3,2,2,3};
 //        removeElement(a,3);
