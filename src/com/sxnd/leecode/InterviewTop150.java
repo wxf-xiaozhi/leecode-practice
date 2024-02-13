@@ -218,14 +218,69 @@ public class InterviewTop150 {
 
     }
 
+    /**
+     * 189. 轮转数组
+     * @param nums
+     * @param k
+     */
+    public static void rotate(int[] nums, int k) {
+//        输入: nums = [1,2,3,4,5,6,7], k = 3
+//        输出: [5,6,7,1,2,3,4]
+        // 自己写的超出时间限制
+//        int n = nums.length;
+//        LinkedList<Integer> list = new LinkedList<>();
+//        for (int num : nums) {
+//            list.add(num);
+//        }
+//        for (int i = 0; i < k; i++) {
+//            Integer x = list.get(n-1);
+//            list.remove(n-1);
+//            list.addFirst(x);
+//        }
+//        for (int i = 0; i < list.size(); i++) {
+//            nums[i] = list.get(0);
+//        }
+        // 官方解法
+        int n = nums.length;
+        int[] newArr = new int[n];
+        for (int i = 0; i < n; ++i) {
+            newArr[(i + k) % n] = nums[i];
+        }
+        System.arraycopy(newArr, 0, nums, 0, n);
+
+//        此解法不对；
+//        int n = nums.length;
+//        int[] result = new int[n];
+//        if(k<n){
+//            for (int i = 0; i < n; i++) {
+//                if(i < k){
+//                    result[i] = nums[(n-k+i)];
+//                }else {
+//                    result[i] = nums[i-k];
+//                }
+//            }
+//        }else{
+//            int index = 0;
+//            for (int i = n-1; i >=0 ; i--) {
+//                result[index++] = nums[i];
+//            }
+//        }
+//        for (int i = 0; i < n; i++) {
+//            nums[i] = result[i];
+//        }
+    }
+
     public static void main(String[] args) {
 //        int[] a ={3,2,2,3};
 //        removeElement(a,3);
 
-        int[] a ={1,1,2};
-        removeDuplicates(a);
+//        int[] a ={1,1,2};
+//        removeDuplicates(a);
+//
+//        int[] b = {0,0,1,1,1,1,2,3,3};
+//        removeDuplicates2(b);
 
-        int[] b = {0,0,1,1,1,1,2,3,3};
-        removeDuplicates2(b);
+        int[] c = {1,2};
+        rotate(c,2);
     }
 }
