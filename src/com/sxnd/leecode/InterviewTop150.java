@@ -270,6 +270,142 @@ public class InterviewTop150 {
 //        }
     }
 
+    /**
+     * 125. 验证回文串
+     * @param s
+     * @return
+     */
+    public boolean isPalindrome(String s) {
+        // 解法一
+//        StringBuffer sgood = new StringBuffer();
+//        int length = s.length();
+//        for (int i = 0; i < length; i++) {
+//            char ch = s.charAt(i);
+//            // 过滤字符或数字
+//            if (Character.isLetterOrDigit(ch)) {
+//                sgood.append(Character.toLowerCase(ch));
+//            }
+//        }
+//        StringBuffer sgood_rev = new StringBuffer(sgood).reverse();
+//        return sgood.toString().equals(sgood_rev.toString());
+
+        // 双指针
+        int n = s.length();
+        int left = 0, right = n - 1;
+        while (left < right) {
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+                ++left;
+            }
+            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
+                --right;
+            }
+
+            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+                return false;
+            }
+            ++left;
+            --right;
+        }
+        return true;
+    }
+
+    /**
+     * 55. 跳跃游戏
+     * @param nums
+     * @return
+     */
+    public static boolean canJump(int[] nums) {
+//        输入：nums = [2,3,1,1,4]
+//        输出：true
+//        解释：可以先跳 1 步，从下标 0 到达下标 1, 然后再从下标 1 跳 3 步到达最后一个下标
+
+
+        // 官方题解，贪心算法
+        int n = nums.length;
+        int rightmost = 0;
+        for (int i = 0; i < n; ++i) {
+            if (i <= rightmost) {
+                rightmost = Math.max(rightmost, i + nums[i]);
+                if (rightmost >= n - 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+        // 自己写的，使用的递归法，但是错误的,没有考虑到j > val,应该回到上次循环，目前直接返回false情况,这种思路不对
+//        int n = nums.length;
+//        if(nums.length == 0 || nums[0] >= (n-1)){
+//            return true;
+//        }
+//        return myDeep(0,nums);
+
+    }
+    public static Boolean myDeep(int curPos,int[] nums){
+        int val = nums[curPos];
+        for (int j = 1; j <= val; j++) {
+            int step = curPos + j;
+            if (step >= nums.length - 1) {
+                return true;
+            } else {
+                // max = Math.max(max, step);
+                return myDeep(step, nums);
+            }
+        }
+        return false;
+
+    }
+
+    /**
+     * 14. 最长公共前缀
+     * @param strs
+     * @return
+     */
+    public static String longestCommonPrefix(String[] strs) {
+        // 此解法错误
+//        if(strs.length ==1){
+//            return strs[0];
+//        }
+//        String base = strs[0];
+//        int min = 0;
+//        for (int i = 1; i < strs.length; i++) {
+//            String s = strs[i];
+//            min = Math.min(base.length(),s.length());
+//            base = base.substring(0,min);
+//            for (int j = 0; j < min; j++) {
+//                if(base.charAt(j) != s.charAt(j)){
+//                    base = s.substring(0,j);
+//                    return base;
+//                }
+//            }
+//
+//        }
+//        return base.substring(0,min);
+
+        // 官方题解
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+        String prefix = strs[0];
+        int count = strs.length;
+        for (int i = 1; i < count; i++) {
+            prefix = longestCommonPrefix(prefix, strs[i]);
+            if (prefix.length() == 0) {
+                break;
+            }
+        }
+        return prefix;
+    }
+
+    public static String longestCommonPrefix(String str1, String str2) {
+        int length = Math.min(str1.length(), str2.length());
+        int index = 0;
+        while (index < length && str1.charAt(index) == str2.charAt(index)) {
+            index++;
+        }
+        return str1.substring(0, index);
+    }
+
     public static void main(String[] args) {
 //        int[] a ={3,2,2,3};
 //        removeElement(a,3);
@@ -280,7 +416,18 @@ public class InterviewTop150 {
 //        int[] b = {0,0,1,1,1,1,2,3,3};
 //        removeDuplicates2(b);
 
-        int[] c = {1,2};
-        rotate(c,2);
+//        int[] c = {1,2};
+//        rotate(c,2);
+
+//        int[] a = {2,5,0,0};
+//        boolean b = canJump(a);
+//        System.out.println(b);
+
+        String[] a = {"flower","flow","flight"};
+        String[] b = {"aaa","aa","aaa"};
+        String s = longestCommonPrefix(b);
+        System.out.println(s);
+
+
     }
 }
