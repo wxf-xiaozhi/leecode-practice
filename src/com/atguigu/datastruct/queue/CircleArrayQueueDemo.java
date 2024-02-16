@@ -150,7 +150,6 @@ public class CircleArrayQueueDemo {
             if (isEmpty()) {
                 throw new RuntimeException("队列为空");
             }
-
             return arr[front];
         }
 
