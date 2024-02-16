@@ -3,18 +3,18 @@ package com.atguigu.datastruct.queue;
 import java.util.Scanner;
 
 /**
- * 数组模拟队列，队列只可使用一次，队列取出数据后不能再放。
+ * 利用环形数组模拟真正的队列
  *
  * @version v1.0
  * @Author: xiaozhi
- * @Date: 2024/2/15 15:53
+ * @Date: 2024/2/16 18:46
  */
-public class ArrayQueueDemo {
+public class CircleArrayQueueDemo {
 
     public static void main(String[] args) {
         //测试一把
         //创建一个队列
-        ArrayQueue queue = new ArrayQueue(3);
+        CircleArrayQueueDemo.CircleArrayQueue queue = new CircleArrayQueueDemo.CircleArrayQueue(4);
         char key = ' '; //接收用户输入
         Scanner scanner = new Scanner(System.in);
         //
@@ -66,45 +66,70 @@ public class ArrayQueueDemo {
         }
     }
 
+    /**
+     * front指向队列的第一个元素，初始值为0
+     * tail 初始值0，最大为数组倒数第二个元素
+     * tail 初始值0，最大为数组倒数第二个元素
+     * 队列满时 (tail + 1) % maxSize == front
+     * 队列空 tail == front
+     * 队列有效个数 (tail - front + max) % max
+     */
+    static class CircleArrayQueue{
 
-    static class ArrayQueue {
-
+        // front指向队列的第一个元素，初始值为0
         private int front;
+
+        // 队尾 tail 初始值0，最大为数组倒数第二个元素
         private int tail;
+
         private int maxSize;
         private int[] arr;
 
-        // 队列构造器
-        public ArrayQueue(int arrMaxSize) {
-            maxSize = arrMaxSize;
+        private CircleArrayQueue(int n){
+            maxSize = n;
             arr = new int[maxSize];
-            front = -1;
-            tail = -1;
+            front = 0;
+            tail = 0;
         }
 
-        public boolean isEmpty() {
+        public Boolean isEmpty(){
             return front == tail;
         }
 
-        public boolean isFull() {
-            return tail == maxSize - 1;
+        /**
+         * 因为要把数组考虑成环形，所以这样写
+         * @return
+         */
+        public Boolean isFull(){
+//            return tail == maxSize -1;
+            // 因为要把数组考虑成环形，所以这样写
+            return (tail+1) % maxSize == front;
         }
 
-        public void addQueue(int val) {
-            if (isFull()) {
+        /**
+         * 对tail进行操作
+         * @param val
+         */
+        public void addQueue(int val){
+            if(isFull()){
                 System.out.println("队列已满~~~~~~~");
                 return;
             }
-            tail++;
             arr[tail] = val;
+            tail = (tail+1) % maxSize;
         }
 
+        /**
+         * 对front进行操作
+         * @return
+         */
         public int getQueue() {
             if (isEmpty()) {
                 throw new RuntimeException("队列为空");
             }
-            front++;
-            return arr[front];
+            int value = arr[front];
+            front = (front+1) % maxSize;
+            return value;
         }
 
         public void showQueue() {
@@ -113,9 +138,12 @@ public class ArrayQueueDemo {
                 return;
             }
 
-            for (int i = 0; i < arr.length; i++) {
-                System.out.printf("arr[%d] = %d\n", i, arr[i]);
+            for (int i = front; i < front+getQueueSize(); i++) {
+                System.out.printf("arr[%d] = %d\n", i % maxSize, arr[i % maxSize]);
             }
+        }
+        public int getQueueSize(){
+            return (tail+maxSize-front) % maxSize;
         }
 
         public int headQueue() {
@@ -123,10 +151,8 @@ public class ArrayQueueDemo {
                 throw new RuntimeException("队列为空");
             }
 
-            return arr[front + 1];
+            return arr[front];
         }
 
     }
 }
-
-
