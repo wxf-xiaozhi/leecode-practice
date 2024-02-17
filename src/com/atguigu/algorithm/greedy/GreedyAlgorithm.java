@@ -1,10 +1,10 @@
 package com.atguigu.algorithm.greedy;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
- * // 贪心算法解决集合覆盖
+ * 贪心算法解决集合覆盖
+ * 在每一步选择中都采取最好或者最优(即最有利)的选择，从而希望能够导致结果是最好或者最优的算法
  *
  * @version v1.0
  * @Author: xiaozhi
