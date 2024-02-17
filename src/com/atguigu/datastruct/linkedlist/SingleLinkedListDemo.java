@@ -12,7 +12,6 @@ public class SingleLinkedListDemo {
         HeroNode hero1 = new HeroNode(1, "宋江", "及时雨");
         HeroNode hero2 = new HeroNode(2, "卢俊义", "玉麒麟");
         HeroNode hero3 = new HeroNode(3, "吴用", "智多星");
-        HeroNode hero31 = new HeroNode(3, "吴用1", "智多星1");
         HeroNode hero4 = new HeroNode(4, "林冲", "豹子头");
         HeroNode hero5 = new HeroNode(5, "武松", "行者");
 
@@ -27,10 +26,16 @@ public class SingleLinkedListDemo {
         singleLinkedList.addByNo(hero4);
         singleLinkedList.addByNo(hero2);
         singleLinkedList.addByNo(hero3);
-        singleLinkedList.addByNo(hero3);
+//        singleLinkedList.addByNo(hero3);
 
 
         singleLinkedList.show();
+
+        HeroNode hero21 = new HeroNode(2, "小卢", "玉麒麟~~~");
+
+        singleLinkedList.updateNode(hero21);
+        singleLinkedList.show();
+
     }
 
 
@@ -76,9 +81,32 @@ public class SingleLinkedListDemo {
                  temp.next = node ;
 
              }
-
          }
+        public  void updateNode(HeroNode node){
+            if(head.next == null){
+                System.out.println("链表为空");
+                return;
+            }
+            HeroNode temp = head;
+            Boolean flag = false;
+            while (true){
+                if(temp == null){
+                    break;
+                }
+                if(temp.no == node.no){
+                    flag = true;
+                    break;
+                }
+                temp = temp.next;
+            }
+            if(flag){
+                temp.name = node.name;
+                temp.nickName = node.nickName;
+            }else{
+                System.out.printf("没有找到 编号 %d 的节点，不能修改\n", node.no);
+            }
 
+        }
         public void show(){
             if(head.next == null){
                 System.out.println("链表为空");
