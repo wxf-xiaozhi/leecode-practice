@@ -36,6 +36,14 @@ public class SingleLinkedListDemo {
         singleLinkedList.updateNode(hero21);
         singleLinkedList.show();
 
+
+        singleLinkedList.delNode(1);
+        singleLinkedList.delNode(3);
+        singleLinkedList.delNode(4);
+        singleLinkedList.delNode(2);
+        System.out.println("删除后的链表");
+        singleLinkedList.show();
+
     }
 
 
@@ -44,6 +52,7 @@ public class SingleLinkedListDemo {
         private HeroNode head = new HeroNode(0,"","");
 
         /**
+         * 添加节点
          * 思路：
          * 找到链表最后节点，将新节点设置为最后一个节点的next
          * @param node
@@ -59,6 +68,10 @@ public class SingleLinkedListDemo {
             temp.next = node;
         }
 
+         /**
+          * a按顺序添加节点
+          * @param node
+          */
          public void addByNo(HeroNode node){
             HeroNode temp = head;
             boolean flag = false;
@@ -82,6 +95,35 @@ public class SingleLinkedListDemo {
 
              }
          }
+         /**
+          * 删除节点
+          * @param no
+          */
+         public void delNode(int no){
+             HeroNode temp = head;
+             Boolean flag = false;
+             while (true){
+                 if(temp.next == null){
+                     break;
+                 }
+                 if(temp.next.no == no){
+                     flag = true;
+                     break;
+                 }
+                 temp =  temp.next;
+             }
+             if(flag){
+                 temp.next = temp.next.next;
+             }else {
+                 System.out.println("要删除的节点不存在");
+             }
+         }
+
+
+         /**
+          * 更新节点
+          * @param node
+          */
         public  void updateNode(HeroNode node){
             if(head.next == null){
                 System.out.println("链表为空");
@@ -107,7 +149,12 @@ public class SingleLinkedListDemo {
             }
 
         }
-        public void show(){
+
+
+         /**
+          * 链表打印
+          */
+         public void show(){
             if(head.next == null){
                 System.out.println("链表为空");
                 return;
