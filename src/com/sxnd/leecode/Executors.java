@@ -10,11 +10,35 @@ import java.util.concurrent.*;
  * @Date: 2024/2/22 10:42
  */
 public class Executors {
+    /**
+     * 测试一个thread多次Start
+     * 测试结果：发现只启动了一个线程，另一个线程抛出IllegalThreadStateException
+     */
+    public void testTreadMulStart(){
+        PrintTimeThread printTime = new PrintTimeThread();
+        printTime.start();
+        printTime.start();
+    }
+
+    public static class PrintTimeThread extends Thread {
+        @Override
+        public void run() {
+            System.out.println(System.currentTimeMillis());
+        }
+    }
+
+
+    /**
+     * 线程池使用
+     * @param args
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
                 1,
                 2,
-                500,
+                500,// 非核心最大线程的存活时间
                 TimeUnit.SECONDS,
                 new LinkedBlockingDeque<>(),
                 new ThreadFactory() {
