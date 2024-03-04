@@ -1,5 +1,8 @@
 package com.atguigu.datastruct.linkedlist;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 实现单链表
  *
@@ -167,8 +170,16 @@ public class SingleLinkedListDemo {
                 System.out.println(temp);
                 temp = temp.next;
             }
+
+             Map<String,String> map = new HashMap();
+             for (Map.Entry<String, String> stringStringEntry : map.entrySet()) {
+
+             }
         }
     }
+
+
+
       static class HeroNode{
         int no;
         String name;

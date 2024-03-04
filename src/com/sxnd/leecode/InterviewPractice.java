@@ -388,6 +388,98 @@ public class InterviewPractice {
         int[] B = {1,2,3};
         merge(A,3,B,3);
     }
+    /**
+     * 快手效能 leecode 678
+     */
+    public boolean validateStr(String str){
+        Stack<Integer> left = new Stack<>();
+        Stack<Integer> asteriskStack = new Stack<>();
+        for (int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) == '('){
+                left.push(i);
+            }else if(str.charAt(i) == '*'){
+                asteriskStack.push(i);
+            }else{
+                if (!left.isEmpty()) {
+                    left.pop();
+                } else if (!asteriskStack.isEmpty()) {
+                    asteriskStack.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        while (!left.isEmpty() && !asteriskStack.isEmpty()) {
+            int leftIndex = left.pop();
+            int asteriskIndex = asteriskStack.pop();
+            if (leftIndex > asteriskIndex) {
+                return false;
+            }
+        }
+        return left.isEmpty();
+
+
+    }
+
+    /**
+     * 好未来 leecode 3
+     */
+    public int lengthOfLongestSubstring(String s){
+        // 哈希集合，记录每个字符是否出现过
+        Set<Character> occ = new HashSet<Character>();
+        int n = s.length();
+        // 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动
+        int rk = -1, ans = 0;
+        for (int i = 0; i < n; ++i) {
+            if (i != 0) {
+                // 左指针向右移动一格，移除一个字符
+                occ.remove(s.charAt(i - 1));
+            }
+            while (rk + 1 < n && !occ.contains(s.charAt(rk + 1))) {
+                // 不断地移动右指针
+                occ.add(s.charAt(rk + 1));
+                ++rk;
+            }
+            // 第 i 到 rk 个字符是一个极长的无重复字符子串
+            ans = Math.max(ans, rk - i + 1);
+        }
+        return ans;
+    }
+
+
+
+
+    /**
+     * 根网科技 leecode 20
+     */
+    public static boolean isValid(String s) {
+        Map<Character,Character> map =new HashMap<>();
+        map.put(')','(');
+        map.put(']','[');
+        map.put('}','{');
+        char[] chars = s.toCharArray();
+        if(chars.length % 2 == 1){
+            return false;
+        }
+
+        Stack<Character> stack = new Stack<>();
+        for (char aChar : chars) {
+            if(aChar == '(' || aChar == '[' || aChar == '{' ){
+                stack.push(aChar);
+            }else{
+                Character character = map.get(aChar);
+                if(stack.isEmpty() || character != stack.peek()){
+                    return false;
+                }
+                stack.pop();
+            }
+        }
+        if(!stack.isEmpty()){
+            return false;
+        }
+        return true;
+
+    }
 
 
 
