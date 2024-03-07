@@ -384,9 +384,15 @@ public class InterviewPractice {
 //        ListNode listNode = ListNode.buildListNodeByArray(myarr);
 //        ListNode listNode1 = deleteDubElement(listNode);
 //        System.out.println(listNode1);
-        int[] A = {4,5,6,0,0,0};
-        int[] B = {1,2,3};
-        merge(A,3,B,3);
+//        int[] A = {4,5,6,0,0,0};
+//        int[] B = {1,2,3};
+//        merge(A,3,B,3);
+
+        int[] arr = {2,5,89,10,67,22};
+        quickSort(arr,0,arr.length-1);
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i]);
+        }
     }
     /**
      * 快手效能 leecode 678
@@ -479,6 +485,44 @@ public class InterviewPractice {
         }
         return true;
 
+    }
+    /**
+     * 西安 腾讯 快排
+     */
+    public static void quickSort(int[] arr,int left, int right){
+        if(arr == null || arr.length==0){
+            return;
+        }
+        if(left > right){
+            return;
+        }
+        // 以arr[left]为基准值
+        int key = arr[left];
+        int L = left;
+        int R = right;
+
+        while (L != R){
+            // 因为基准值右侧放比基准值大的，所以碰到arr[R] >= key，则R--,这样能找到右侧比基准值小的，就是arr[R],然后停止,
+            while (L < R && arr[R] >= key){
+                R--;
+            }
+            // 因为基准值左侧放比基准值晓的，所以碰到arr[L] <= key，则L++，这样能找到左侧比基准值大的，就是arr[L],然后停止,
+            while (L < R && arr[L] <= key){
+                L++;
+            }
+            // 交换 L和R对应的值
+            if(L < R){
+                int temp = arr[L];
+                arr[L] = arr[R];
+                arr[R] = temp;
+            }
+        }
+        // 交换基准值与arr[L] 或者arr[R]交换，其实可以是arr[L] 或者arr[R],因为上一层while判断是L!=R,所以此时L=R了
+        arr[left] = arr[L];
+        arr[L] = key;
+
+        quickSort(arr,left,L-1);
+        quickSort(arr,L+1,right);
     }
 
 
