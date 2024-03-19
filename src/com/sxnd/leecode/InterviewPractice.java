@@ -525,6 +525,11 @@ public class InterviewPractice {
         quickSort(arr,L+1,right);
     }
 
+    /**
+     * 两个栈实现一个队列
+     */
+
+
 
 
 }
