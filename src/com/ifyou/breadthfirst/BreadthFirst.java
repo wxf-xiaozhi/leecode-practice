@@ -66,41 +66,67 @@ public class BreadthFirst {
         }
         return false;
     }
+    public static class Node{
+        String name;
+        Integer level;
 
+        public Node(String name, Integer level) {
+            this.name = name;
+            this.level = level;
+        }
 
-//    public static String breadthFirst1(Map<String,List<String>> graph,String start,String target){
-//
-//        if(start.equals(target)){
-//            return start;
-//        }
-//        StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder.append(start);
-//        Lin<String> queue = new ArrayDeque<>();
-//        List<String> friends = graph.get(start);
-//        for (int i = 0; i < friends.size(); i++) {
-//            queue.offer(friends.get(i));
-//        }
-//        int level = 1;
-//        Set<String> checked = new HashSet<>();
-//        while (!queue.isEmpty()){
-//            String person = queue.poll();
-//            if(!checked.contains(person)){
-//                if(!friends.contains(person)){
-//                    level++;
-//                }
-//                if(person.equals(target)){
-//                    return stringBuilder.toString();
-//                }else{
-//                    List<String> newFriends = graph.get(person);
-//                    for (int i = 0; i < newFriends.size(); i++) {
-//                        queue.offer(newFriends.get(i));
-//                    }
-//                }
-//                checked.add(person);
-//            }
-//        }
-//        return "";
-//    }
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Integer getLevel() {
+            return level;
+        }
+
+        public void setLevel(Integer level) {
+            this.level = level;
+        }
+    }
+
+    public static String breadthFirst1(Map<String,List<String>> graph,String start,String target){
+
+        if(start.equals(target)){
+            return start;
+        }
+
+        Queue<Node> queue = new ArrayDeque<>();
+        List<String> friends = graph.get(start);
+        Integer level = 1;
+        for (int i = 0; i < friends.size(); i++) {
+            Node node = new Node(friends.get(i),level++);
+            queue.offer(node);
+        }
+        Set<String> checked = new HashSet<>();
+        while (!queue.isEmpty()){
+            Node person = queue.poll();
+            if(!checked.contains(person.getName())){
+                if(!friends.contains(person.getName())){
+                    level++;
+                }
+                if(person.getName().equals(target)){
+
+                    return stringBuilder.toString();
+                }else{
+                    Integer level1 = person.getLevel();
+                    List<String> newFriends = graph.get(person.getName());
+                    for (int i = 0; i < newFriends.size(); i++) {
+                        queue.offer(newFriends.get(i));
+                    }
+                }
+                checked.add(person.getName());
+            }
+        }
+        return "";
+    }
 
 
     /**
