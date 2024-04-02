@@ -92,40 +92,39 @@ public class BreadthFirst {
         }
     }
 
-    public static String breadthFirst1(Map<String,List<String>> graph,String start,String target){
-
+    public static List<Node> breadthFirst1(Map<String,List<String>> graph,String start,String target){
+        Integer level = 0;
+        List<Node> path = new ArrayList<>();
+        Node startNode = new Node(start,level);
+        path.add(startNode);
         if(start.equals(target)){
-            return start;
+            return path;
         }
-
         Queue<Node> queue = new ArrayDeque<>();
         List<String> friends = graph.get(start);
-        Integer level = 1;
+
         for (int i = 0; i < friends.size(); i++) {
-            Node node = new Node(friends.get(i),level++);
+            Node node = new Node(friends.get(i),(level+1));
             queue.offer(node);
         }
         Set<String> checked = new HashSet<>();
         while (!queue.isEmpty()){
             Node person = queue.poll();
             if(!checked.contains(person.getName())){
-                if(!friends.contains(person.getName())){
-                    level++;
-                }
                 if(person.getName().equals(target)){
-
-                    return stringBuilder.toString();
+                    path.add(person);
+                    return path;
                 }else{
-                    Integer level1 = person.getLevel();
                     List<String> newFriends = graph.get(person.getName());
                     for (int i = 0; i < newFriends.size(); i++) {
-                        queue.offer(newFriends.get(i));
+                        Node node = new Node(newFriends.get(i), (person.level+1));
+                        queue.offer(node);
                     }
                 }
                 checked.add(person.getName());
             }
         }
-        return "";
+        return path;
     }
 
 
