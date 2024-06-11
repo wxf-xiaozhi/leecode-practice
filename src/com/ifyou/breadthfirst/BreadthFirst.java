@@ -30,10 +30,11 @@ public class BreadthFirst {
     }
 
     /**
-     * 因为使用到队列，遵循FIFO.所以会优先遍历一度关系，在遍历二度关系，所以如果能找到芒果商，找到的也是最短路径
-     *
-     *
-     *
+     * 使用广度优先搜索算法在图（graph）中查找从起始节点（start）到目标节点（target）的路径。
+     * @param graph 包含节点和它们邻居节点关系的图，键为节点名称，值为邻居节点列表
+     * @param start 起始节点的名称
+     * @param target 目标节点的名称
+     * @return 如果找到从起始节点到目标节点的路径，则返回true；否则返回false
      * @param graph
      * @param start
      */
@@ -92,6 +93,14 @@ public class BreadthFirst {
         }
     }
 
+    /**
+     * 根据给定的图（Map<String,List<String>>）使用广度优先搜索算法查找从起点（String start）到目标点（String target）的路径
+     *
+     * @param graph 图的表示，键为节点的名称，值为该节点的邻居列表
+     * @param start 起点节点的名称
+     * @param target 目标节点的名称
+     * @return 包含起点到目标点路径的节点列表，如果未找到路径则返回空列表
+     */
     public static List<Node> breadthFirst1(Map<String,List<String>> graph,String start,String target){
         Integer level = 0;
         List<Node> path = new ArrayList<>();
